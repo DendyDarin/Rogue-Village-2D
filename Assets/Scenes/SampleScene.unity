@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 145371461}
   - component: {fileID: 145371465}
   - component: {fileID: 145371462}
+  - component: {fileID: 145371466}
   m_Layer: 0
   m_Name: Player_Ninja
   m_TagString: Untagged
@@ -271,6 +272,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &145371466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145371460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540b6c891a93c4d01821904b45c9508f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: a9bfd1c4001434c5f970a43dceb2c383, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
