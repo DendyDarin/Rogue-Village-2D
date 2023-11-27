@@ -8,13 +8,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Config")]
     [SerializeField] private float speed;
 
+    private readonly int moveX = Animator.StringToHash("MoveX"); //technique to avoid misspelling in string references
+    private readonly int moveY = Animator.StringToHash("MoveY");
+    private readonly int moving = Animator.StringToHash("Moving"); //hash to boolean moving
+
     // REFERENCES
     private PlayerActions actions; //refers to class we create before in Actions folder
     private Rigidbody2D rb2D; //refers to rigidbody2d component
+    private Animator animator; // refers to animator setting
     private Vector2 moveDirection;
 
     private void Awake() {
-        actions = new PlayerActions(); //we need to enable this
+        actions = new PlayerActions(); //we need to toggle this
+        animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
     }
 
@@ -39,6 +45,16 @@ public class PlayerMovement : MonoBehaviour
     private void ReadMovement()
     {
         moveDirection = actions.Movement.Move.ReadValue<Vector2>().normalized; //access to PlayerActions value
+        // conditional if player in 0,0 position, animation not run
+        if (moveDirection == Vector2.zero)
+        {
+            animator.SetBool(moving, false);
+            return;
+        }
+        // if player does move, run this code
+        animator.SetBool(moving, true);
+        animator.SetFloat(moveX, moveDirection.x);
+        animator.SetFloat(moveY, moveDirection.y);
     }
 
     //method for toggle in awake method
