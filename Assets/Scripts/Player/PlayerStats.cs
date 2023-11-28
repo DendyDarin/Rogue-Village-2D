@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStats : ScriptableObject
 {
+    // -- parameter
+
     [Header("Config")]
     public int Level;
 
@@ -15,10 +17,19 @@ public class PlayerStats : ScriptableObject
     public float Mana;
     public float MaxMana;
 
+    [Header("Exp")]
+    public float CurrentExp;
+    public float NextLevelExp;
+    public float InitialNextLevelExp;
+    [Range(1f, 100f)] public float ExpMultiplier;
+
     // require to custom editor button
     public void ResetPlayer()
     {
         Health = MaxHealth;
         Mana = MaxMana;
+        Level = 1;
+        CurrentExp = 0f;
+        NextLevelExp = InitialNextLevelExp;
     }
 }
