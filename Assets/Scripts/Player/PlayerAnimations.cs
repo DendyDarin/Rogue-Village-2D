@@ -10,6 +10,7 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int moveY = Animator.StringToHash("MoveY");
     private readonly int moving = Animator.StringToHash("Moving"); //hash to boolean moving
     private readonly int dead = Animator.StringToHash("Dead");
+    private readonly int revive = Animator.StringToHash("Revive");
 
     private Animator animator; // refers to animator setting
 
@@ -33,5 +34,12 @@ public class PlayerAnimations : MonoBehaviour
     {
         animator.SetFloat(moveX, dir.x);
         animator.SetFloat(moveY, dir.y);
+    }
+
+    public void ResetPlayer()
+    {
+        // player will in idle mode when revive
+        SetMoveAnimation(Vector2.down);
+        animator.SetTrigger(revive);
     }
 }

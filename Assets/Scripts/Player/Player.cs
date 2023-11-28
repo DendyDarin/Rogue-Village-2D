@@ -10,4 +10,19 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStats stats;
 
     public PlayerStats Stats => stats; //make new public variable refers to private
+
+    private PlayerAnimations animations;
+
+    private void Awake()
+    {
+        animations = GetComponent<PlayerAnimations>();
+    }
+
+    public void ResetPlayer()
+    {
+        // reset player stat
+        stats.ResetPlayer();
+        // reset animation
+        animations.ResetPlayer();
+    }
 }
