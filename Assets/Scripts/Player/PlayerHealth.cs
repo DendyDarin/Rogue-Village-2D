@@ -7,6 +7,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [Header("Config")]
     [SerializeField] private PlayerStats stats;
 
+    private PlayerAnimations playerAnimations;
+
+    private void Awake()
+    {
+        playerAnimations = GetComponent<PlayerAnimations>(); //call the reference when awake
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -26,6 +33,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private void PlayerDead()
     {
-        Debug.Log("You're Dead...");
+        playerAnimations.SetDeadAnimation();
     }
 }

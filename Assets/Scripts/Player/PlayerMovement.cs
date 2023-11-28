@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // PARAMETER
+    // -- PARAMETER --
     [Header("Config")]
     [SerializeField] private float speed;
 
-    private readonly int moveX = Animator.StringToHash("MoveX"); //technique to avoid misspelling in string references
-    private readonly int moveY = Animator.StringToHash("MoveY");
-    private readonly int moving = Animator.StringToHash("Moving"); //hash to boolean moving
-
-    // REFERENCES
+    // -- REFERENCES --
     private PlayerActions actions; //refers to class we create before in Actions folder
     private Rigidbody2D rb2D; //refers to rigidbody2d component
-    private Animator animator; // refers to animator setting
+    private PlayerAnimations playerAnimations; // reference to PlayerAnimations class
+    private Player player;
     private Vector2 moveDirection;
 
-    private void Awake() {
+    private void Awake()
+    {
+        player = GetComponent<Player>();
         actions = new PlayerActions(); //we need to toggle this
-        animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
+        playerAnimations = GetComponent<PlayerAnimations>();
     }
 
     //call methode ReadMovement
@@ -38,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     //method to Player move
     private void Move()
     {
+        if (player.Stats.Health <= 0) return; // if this true then ignore code below
         rb2D.MovePosition(rb2D.position + moveDirection * (speed * Time.fixedDeltaTime)); //use fixedDeltaTime to ignore the frame rate (independent)
     }
 
@@ -48,13 +48,12 @@ public class PlayerMovement : MonoBehaviour
         // conditional if player in 0,0 position, animation not run
         if (moveDirection == Vector2.zero)
         {
-            animator.SetBool(moving, false);
+            playerAnimations.SetMoveBoolTransition(false);
             return;
         }
         // if player does move, run this code
-        animator.SetBool(moving, true);
-        animator.SetFloat(moveX, moveDirection.x);
-        animator.SetFloat(moveY, moveDirection.y);
+        playerAnimations.SetMoveBoolTransition(true);
+        playerAnimations.SetMoveAnimation(moveDirection);
     }
 
     //method for toggle in awake method
